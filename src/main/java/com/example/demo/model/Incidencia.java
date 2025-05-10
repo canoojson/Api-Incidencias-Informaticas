@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.sql.Blob;
 import java.sql.Time;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name="Incidencia")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Incidencia {
 
     @Id
@@ -17,8 +20,10 @@ public class Incidencia {
 
     private String tipo;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date fecha_incidencia;
     
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date fecha_introduccion;
 
     @ManyToOne
@@ -41,8 +46,11 @@ public class Incidencia {
     @JoinColumn(name = "IdEstado")
     private Estado estado;
 
-    private String responsable;
+    @ManyToOne
+    @JoinColumn(name = "responsable")
+    private Profesor responsable;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date fecha_resolucion;
 
     private Time tiempo_invertido;
@@ -51,12 +59,6 @@ public class Incidencia {
 
     @OneToMany(mappedBy = "Incidencia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comentario> comentarios;
-
-    @OneToOne(mappedBy = "Incidencia", cascade = CascadeType.ALL, orphanRemoval = true)
-    private IncidenciaSoftware incidenciaSoftware;
-
-    @OneToOne(mappedBy = "Incidencia", cascade = CascadeType.ALL, orphanRemoval = true)
-    private IncidenciaHardware incidenciaHardware;
 
     public Incidencia() {
         super();
@@ -142,11 +144,11 @@ public class Incidencia {
         this.estado = estado;
     }
 
-    public String getResponsable() {
+    public Profesor getResponsable() {
         return responsable;
     }
 
-    public void setResponsable(String responsable) {
+    public void setResponsable(Profesor responsable) {
         this.responsable = responsable;
     }
 
@@ -182,22 +184,6 @@ public class Incidencia {
         this.comentarios = comentarios;
     }
 
-    public IncidenciaSoftware getIncidenciaSoftware() {
-        return incidenciaSoftware;
-    }
-
-    public void setIncidenciaSoftware(IncidenciaSoftware incidenciaSoftware) {
-        this.incidenciaSoftware = incidenciaSoftware;
-    }
-
-    public IncidenciaHardware getIncidenciaHardware() {
-        return incidenciaHardware;
-    }
-
-    public void setIncidenciaHardware(IncidenciaHardware incidenciaHardware) {
-        this.incidenciaHardware = incidenciaHardware;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -217,8 +203,6 @@ public class Incidencia {
         result = prime * result + ((tiempo_invertido == null) ? 0 : tiempo_invertido.hashCode());
         result = prime * result + ((mas_info == null) ? 0 : mas_info.hashCode());
         result = prime * result + ((comentarios == null) ? 0 : comentarios.hashCode());
-        result = prime * result + ((incidenciaSoftware == null) ? 0 : incidenciaSoftware.hashCode());
-        result = prime * result + ((incidenciaHardware == null) ? 0 : incidenciaHardware.hashCode());
         return result;
     }
 
@@ -306,16 +290,6 @@ public class Incidencia {
                 return false;
         } else if (!comentarios.equals(other.comentarios))
             return false;
-        if (incidenciaSoftware == null) {
-            if (other.incidenciaSoftware != null)
-                return false;
-        } else if (!incidenciaSoftware.equals(other.incidenciaSoftware))
-            return false;
-        if (incidenciaHardware == null) {
-            if (other.incidenciaHardware != null)
-                return false;
-        } else if (!incidenciaHardware.equals(other.incidenciaHardware))
-            return false;
         return true;
     }
 
@@ -326,7 +300,6 @@ public class Incidencia {
                 + departamento + ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + ", observaciones="
                 + observaciones + ", estado=" + estado + ", responsable=" + responsable + ", fecha_resolucion="
                 + fecha_resolucion + ", tiempo_invertido=" + tiempo_invertido + ", mas_info=" + mas_info
-                + ", comentarios=" + comentarios + ", incidenciaSoftware=" + incidenciaSoftware
-                + ", incidenciaHardware=" + incidenciaHardware + "]";
+                + ", comentarios=" + comentarios + "]";
     }
 }

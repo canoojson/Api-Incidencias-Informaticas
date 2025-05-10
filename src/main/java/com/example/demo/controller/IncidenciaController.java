@@ -62,8 +62,6 @@ public class IncidenciaController {
             incidencia.setTiempo_invertido(detallesIncidencia.getTiempo_invertido());
             incidencia.setMas_info(detallesIncidencia.getMas_info());
             incidencia.setComentarios(detallesIncidencia.getComentarios());
-            incidencia.setIncidenciaSoftware(detallesIncidencia.getIncidenciaSoftware());
-            incidencia.setIncidenciaHardware(detallesIncidencia.getIncidenciaHardware());
             incidencia.setDescripcion(detallesIncidencia.getDescripcion());
             Incidencia incidenciaActualizada = incidenciaService.actualizarIncidencia(incidencia);
             return ResponseEntity.ok(incidenciaActualizada);

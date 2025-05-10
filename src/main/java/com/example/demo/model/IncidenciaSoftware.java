@@ -8,42 +8,26 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Incidencia_Software")
-public class IncidenciaSoftware {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdIncidencia;
+@PrimaryKeyJoinColumn(name = "idIncidencia")
+public class IncidenciaSoftware extends Incidencia {
     @Column(name = "S.O.")
     private String SO;
     private String software;
     private String clave;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "IdIncidencia")
-    private Incidencia incidencia;
-
     public IncidenciaSoftware() {
         super();
     }
 
-    public IncidenciaSoftware(Integer idIncidencia, String sO, String software, String clave, Incidencia incidencia) {
-        IdIncidencia = idIncidencia;
-        SO = sO;
+    public IncidenciaSoftware(String SO, String software, String clave, Incidencia incidencia) {
+        this.SO = SO;
         this.software = software;
         this.clave = clave;
-        this.incidencia = incidencia;
-    }
-
-    public Integer getIdIncidencia() {
-        return IdIncidencia;
-    }
-
-    public void setIdIncidencia(Integer idIncidencia) {
-        IdIncidencia = idIncidencia;
     }
 
     public String getSO() {
@@ -70,23 +54,13 @@ public class IncidenciaSoftware {
         this.clave = clave;
     }
 
-    public Incidencia getIncidencia() {
-        return incidencia;
-    }
-
-    public void setIncidencia(Incidencia incidencia) {
-        this.incidencia = incidencia;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + ((IdIncidencia == null) ? 0 : IdIncidencia.hashCode());
+        int result = super.hashCode();
         result = prime * result + ((SO == null) ? 0 : SO.hashCode());
         result = prime * result + ((software == null) ? 0 : software.hashCode());
         result = prime * result + ((clave == null) ? 0 : clave.hashCode());
-        result = prime * result + ((incidencia == null) ? 0 : incidencia.hashCode());
         return result;
     }
 
@@ -94,16 +68,11 @@ public class IncidenciaSoftware {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (!super.equals(obj))
             return false;
         if (getClass() != obj.getClass())
             return false;
         IncidenciaSoftware other = (IncidenciaSoftware) obj;
-        if (IdIncidencia == null) {
-            if (other.IdIncidencia != null)
-                return false;
-        } else if (!IdIncidencia.equals(other.IdIncidencia))
-            return false;
         if (SO == null) {
             if (other.SO != null)
                 return false;
@@ -119,17 +88,11 @@ public class IncidenciaSoftware {
                 return false;
         } else if (!clave.equals(other.clave))
             return false;
-        if (incidencia == null) {
-            if (other.incidencia != null)
-                return false;
-        } else if (!incidencia.equals(other.incidencia))
-            return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "IncidenciaSoftware [IdIncidencia=" + IdIncidencia + ", SO=" + SO + ", software=" + software + ", clave="
-                + clave + ", incidencia=" + incidencia + "]";
+        return "IncidenciaSoftware [SO=" + SO + ", software=" + software + ", clave=" + clave + "]";
     }
 }
