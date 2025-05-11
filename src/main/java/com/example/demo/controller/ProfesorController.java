@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.model.Incidencia;
+
 import com.example.demo.model.Profesor;
 import com.example.demo.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;

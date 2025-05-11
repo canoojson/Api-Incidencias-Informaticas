@@ -14,6 +14,5 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Integer> {
 	
 	@Query("SELECT p FROM Profesores p WHERE p.Rol = :nombreRol")
     List<Object[]> findProfesoresByRol(String nombreParque);
-
 }
 
