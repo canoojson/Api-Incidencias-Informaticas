@@ -6,17 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Permisos")
+@Table(name="permisos")
 public class Permiso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codPermiso;
     private String descrip;
 
-    
+    @ManyToMany(mappedBy = "permisos")
     private List<Rol> roles;
 
     public Permiso() {

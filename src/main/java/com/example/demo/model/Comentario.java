@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -12,9 +13,10 @@ import javax.persistence.Table;
 public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdComentario;
-	private String Comentario;
+    private Integer idcomentario;
+	private String comentario;
 
+	@ManyToOne
 	@JoinColumn(name = "IdIncidencia", nullable = false)
     private Incidencia incidencia;
 
@@ -23,25 +25,25 @@ public class Comentario {
 	}
 
 	public Comentario(Integer idComentario, String comentario, Incidencia incidencia) {
-		IdComentario = idComentario;
-		Comentario = comentario;
+		idcomentario = idComentario;
+		comentario = comentario;
 		this.incidencia = incidencia;
 	}
 
 	public Integer getIdComentario() {
-		return IdComentario;
+		return idcomentario;
 	}
 
 	public void setIdComentario(Integer idComentario) {
-		IdComentario = idComentario;
+		idcomentario = idComentario;
 	}
 
 	public String getComentario() {
-		return Comentario;
+		return comentario;
 	}
 
 	public void setComentario(String comentario) {
-		Comentario = comentario;
+		comentario = comentario;
 	}
 
 	public Incidencia getIncidencia() {
@@ -56,8 +58,8 @@ public class Comentario {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((IdComentario == null) ? 0 : IdComentario.hashCode());
-		result = prime * result + ((Comentario == null) ? 0 : Comentario.hashCode());
+		result = prime * result + ((idcomentario == null) ? 0 : idcomentario.hashCode());
+		result = prime * result + ((comentario == null) ? 0 : comentario.hashCode());
 		result = prime * result + ((incidencia == null) ? 0 : incidencia.hashCode());
 		return result;
 	}
@@ -71,15 +73,15 @@ public class Comentario {
 		if (getClass() != obj.getClass())
 			return false;
 		Comentario other = (Comentario) obj;
-		if (IdComentario == null) {
-			if (other.IdComentario != null)
+		if (idcomentario == null) {
+			if (other.idcomentario != null)
 				return false;
-		} else if (!IdComentario.equals(other.IdComentario))
+		} else if (!idcomentario.equals(other.idcomentario))
 			return false;
-		if (Comentario == null) {
-			if (other.Comentario != null)
+		if (comentario == null) {
+			if (other.comentario != null)
 				return false;
-		} else if (!Comentario.equals(other.Comentario))
+		} else if (!comentario.equals(other.comentario))
 			return false;
 		if (incidencia == null) {
 			if (other.incidencia != null)
@@ -91,7 +93,7 @@ public class Comentario {
 
 	@Override
 	public String toString() {
-		return "Comentario [IdComentario=" + IdComentario + ", Comentario=" + Comentario + ", incidencia=" + incidencia
+		return "Comentario [IdComentario=" + idcomentario + ", Comentario=" + comentario + ", incidencia=" + incidencia
 				+ "]";
 	}
 }

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,8 @@ import javax.persistence.Table;
 public class Estado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdEstado;
+    @Column(name = "idEstado")
+    private Integer idEstado;
     private String Descrip;
 
     
@@ -21,16 +23,16 @@ public class Estado {
     }
 
     public Estado(Integer idEstado, String descrip) {
-        IdEstado = idEstado;
+        this.idEstado = idEstado;
         Descrip = descrip;
     }
 
-    public Integer getIdEstado() {
-        return IdEstado;
+    public Integer getidEstado() {
+        return idEstado;
     }
 
-    public void setIdEstado(Integer idEstado) {
-        IdEstado = idEstado;
+    public void setidEstado(Integer idEstado) {
+        this.idEstado = idEstado;
     }
 
     public String getDescrip() {
@@ -45,7 +47,7 @@ public class Estado {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((IdEstado == null) ? 0 : IdEstado.hashCode());
+        result = prime * result + ((idEstado == null) ? 0 : idEstado.hashCode());
         result = prime * result + ((Descrip == null) ? 0 : Descrip.hashCode());
         return result;
     }
@@ -59,10 +61,10 @@ public class Estado {
         if (getClass() != obj.getClass())
             return false;
         Estado other = (Estado) obj;
-        if (IdEstado == null) {
-            if (other.IdEstado != null)
+        if (idEstado == null) {
+            if (other.idEstado != null)
                 return false;
-        } else if (!IdEstado.equals(other.IdEstado))
+        } else if (!idEstado.equals(other.idEstado))
             return false;
         if (Descrip == null) {
             if (other.Descrip != null)
@@ -74,7 +76,7 @@ public class Estado {
 
     @Override
     public String toString() {
-        return "Estado [IdEstado=" + IdEstado + ", Descrip=" + Descrip + "]";
+        return "Estado [idEstado=" + idEstado + ", Descrip=" + Descrip + "]";
     }
     
 }

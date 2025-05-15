@@ -2,22 +2,31 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Roles")
+@Table(name="roles")
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idRol")
     private Integer idRol;
     private String descrip;
 
-    @OneToMany(mappedBy="persona" )
+    @ManyToMany
+    @JoinTable(
+        name = "roles_permisos",
+        joinColumns = @JoinColumn(name = "idRol",referencedColumnName = "idRol"),
+        inverseJoinColumns = @JoinColumn(name = "codPermiso",referencedColumnName = "codPermiso")
+    )
     private List<Permiso> permisos;
 
     public Rol() {

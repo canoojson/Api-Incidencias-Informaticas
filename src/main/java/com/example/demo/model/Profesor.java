@@ -10,7 +10,7 @@ public class Profesor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer IdProfesor;
+    private Integer idProfesor;
 
     private String dni;
 
@@ -21,7 +21,7 @@ public class Profesor {
     @Column(columnDefinition = "text")
     private String descripcion;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codDpto")
     private Departamento departamento;
 
@@ -29,7 +29,7 @@ public class Profesor {
 
     private String pwd;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="idRol")
     private Rol rol;
 
@@ -40,7 +40,7 @@ public class Profesor {
    
     public Profesor(Integer idProfesor, String dni, String nombre, String apellidos, String descripcion,
             Departamento departamento, String email, String pwd, Rol rol, String username) {
-        IdProfesor = idProfesor;
+    	idProfesor = idProfesor;
         this.dni = dni;
         Nombre = nombre;
         Apellidos = apellidos;
@@ -57,11 +57,11 @@ public class Profesor {
     }
 
     public Integer getIdProfesor() {
-        return IdProfesor;
+        return idProfesor;
     }
 
     public void setIdProfesor(Integer idProfesor) {
-        IdProfesor = idProfesor;
+    	idProfesor = idProfesor;
     }
 
     public String getDni() {
@@ -140,7 +140,7 @@ public class Profesor {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((IdProfesor == null) ? 0 : IdProfesor.hashCode());
+        result = prime * result + ((idProfesor == null) ? 0 : idProfesor.hashCode());
         result = prime * result + ((dni == null) ? 0 : dni.hashCode());
         result = prime * result + ((Nombre == null) ? 0 : Nombre.hashCode());
         result = prime * result + ((Apellidos == null) ? 0 : Apellidos.hashCode());
@@ -162,10 +162,10 @@ public class Profesor {
         if (getClass() != obj.getClass())
             return false;
         Profesor other = (Profesor) obj;
-        if (IdProfesor == null) {
-            if (other.IdProfesor != null)
+        if (idProfesor == null) {
+            if (other.idProfesor != null)
                 return false;
-        } else if (!IdProfesor.equals(other.IdProfesor))
+        } else if (!idProfesor.equals(other.idProfesor))
             return false;
         if (dni == null) {
             if (other.dni != null)
@@ -217,7 +217,7 @@ public class Profesor {
 
     @Override
     public String toString() {
-        return "Profesor [IdProfesor=" + IdProfesor + ", dni=" + dni + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos
+        return "Profesor [IdProfesor=" + idProfesor + ", dni=" + dni + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos
                 + ", descripcion=" + descripcion + ", departamento=" + departamento + ", email=" + email + ", pwd="
                 + pwd + ", rol=" + rol + ", username=" + username + "]";
     }

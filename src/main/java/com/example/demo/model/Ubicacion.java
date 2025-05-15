@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_ubicacion")
     private Integer IdUbicacion;
     private String Nombre;
 	private String Descrip;
@@ -20,16 +21,16 @@ public class Ubicacion {
 		super();
 	}
 
-	public Ubicacion(Integer idUbicacion, String nombre, String descrip) {
-		IdUbicacion = idUbicacion;
+	public Ubicacion(Integer IdUbicacion, String nombre, String descrip) {
+		this.IdUbicacion = IdUbicacion;
 		Nombre = nombre;
 		Descrip = descrip;
 	}
 	public Integer getIdUbicacion() {
 		return IdUbicacion;
 	}
-	public void setIdUbicacion(Integer idUbicacion) {
-		IdUbicacion = idUbicacion;
+	public void setIdUbicacion(Integer IdUbicacion) {
+		IdUbicacion = IdUbicacion;
 	}
 	public String getNombre() {
 		return Nombre;

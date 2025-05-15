@@ -35,7 +35,7 @@ public class Incidencia {
     private Departamento departamento;
 
     @ManyToOne
-    @JoinColumn(name = "IdUbicacion")
+    @JoinColumn(name = "id_ubicacion")
     private Ubicacion ubicacion;
 
     private String descripcion;
@@ -57,7 +57,7 @@ public class Incidencia {
 
     private Blob mas_info;
 
-    @OneToMany(mappedBy = "Incidencia", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comentario> comentarios;
 
     public Incidencia() {
