@@ -14,7 +14,7 @@ public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idComentario;
-	private String comentario;
+	private String Comentario;
 
 	@ManyToOne
 	@JoinColumn(name = "idIncidencia", nullable = false)
@@ -26,7 +26,7 @@ public class Comentario {
 
 	public Comentario(Integer idComentario, String comentario, Incidencia incidencia) {
 		this.idComentario = idComentario;
-		this.comentario = comentario;
+		this.Comentario = comentario;
 		this.incidencia = incidencia;
 	}
 
@@ -39,11 +39,11 @@ public class Comentario {
 	}
 
 	public String getComentario() {
-		return comentario;
+		return Comentario;
 	}
 
 	public void setComentario(String comentario) {
-		this.comentario = comentario;
+		this.Comentario = comentario;
 	}
 
 	public Incidencia getIncidencia() {
@@ -59,7 +59,7 @@ public class Comentario {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((idComentario == null) ? 0 : idComentario.hashCode());
-		result = prime * result + ((comentario == null) ? 0 : comentario.hashCode());
+		result = prime * result + ((Comentario == null) ? 0 : Comentario.hashCode());
 		result = prime * result + ((incidencia == null) ? 0 : incidencia.hashCode());
 		return result;
 	}
@@ -78,10 +78,10 @@ public class Comentario {
 				return false;
 		} else if (!idComentario.equals(other.idComentario))
 			return false;
-		if (comentario == null) {
-			if (other.comentario != null)
+		if (Comentario == null) {
+			if (other.Comentario != null)
 				return false;
-		} else if (!comentario.equals(other.comentario))
+		} else if (!Comentario.equals(other.Comentario))
 			return false;
 		if (incidencia == null) {
 			if (other.incidencia != null)
@@ -93,7 +93,7 @@ public class Comentario {
 
 	@Override
 	public String toString() {
-		return "Comentario [IdComentario=" + idComentario + ", Comentario=" + comentario + ", incidencia=" + incidencia
+		return "Comentario [IdComentario=" + idComentario + ", Comentario=" + Comentario + ", incidencia=" + incidencia
 				+ "]";
 	}
 }

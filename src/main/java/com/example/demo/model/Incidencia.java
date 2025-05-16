@@ -8,16 +8,21 @@ import java.sql.Blob;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name="incidencia")
-@Inheritance(strategy = InheritanceType.JOINED)
+
 public class Incidencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="idIncidencia")
     private Integer idIncidencia;
 
+    @OneToOne(mappedBy = "incidencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private IncidenciaHardware incidenciaHardware;
+    
     private String tipo;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
@@ -59,247 +64,200 @@ public class Incidencia {
 
     @OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comentario> comentarios;
+    
+    
 
-    public Incidencia() {
-        super();
-    }
+	public Incidencia() {
+		super();
+	}
 
-    public Integer getID() {
-        return idIncidencia;
-    }
+	public Incidencia(Integer idIncidencia, IncidenciaHardware incidenciaHardware, String tipo, Date fecha_incidencia,
+			Date fecha_introduccion, Profesor profesor, Departamento departamento, Ubicacion ubicacion,
+			String descripcion, String observaciones, Estado estado, Profesor responsable, Date fecha_resolucion,
+			Time tiempo_invertido, Blob mas_info, List<Comentario> comentarios) {
+		super();
+		this.idIncidencia = idIncidencia;
+		this.incidenciaHardware = incidenciaHardware;
+		this.tipo = tipo;
+		this.fecha_incidencia = fecha_incidencia;
+		this.fecha_introduccion = fecha_introduccion;
+		this.profesor = profesor;
+		this.departamento = departamento;
+		this.ubicacion = ubicacion;
+		this.descripcion = descripcion;
+		this.observaciones = observaciones;
+		this.estado = estado;
+		this.responsable = responsable;
+		this.fecha_resolucion = fecha_resolucion;
+		this.tiempo_invertido = tiempo_invertido;
+		this.mas_info = mas_info;
+		this.comentarios = comentarios;
+	}
 
-    public void setID(Integer iD) {
-    	idIncidencia = iD;
-    }
+	public Integer getIdIncidencia() {
+		return idIncidencia;
+	}
 
-    public String getTipo() {
-        return tipo;
-    }
+	public void setIdIncidencia(Integer idIncidencia) {
+		this.idIncidencia = idIncidencia;
+	}
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+	public IncidenciaHardware getIncidenciaHardware() {
+		return incidenciaHardware;
+	}
 
-    public Date getFecha_incidencia() {
-        return fecha_incidencia;
-    }
+	public void setIncidenciaHardware(IncidenciaHardware incidenciaHardware) {
+		this.incidenciaHardware = incidenciaHardware;
+	}
 
-    public void setFecha_incidencia(Date fecha_incidencia) {
-        this.fecha_incidencia = fecha_incidencia;
-    }
+	public String getTipo() {
+		return tipo;
+	}
 
-    public Date getFecha_introduccion() {
-        return fecha_introduccion;
-    }
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
-    public void setFecha_introduccion(Date fecha_introduccion) {
-        this.fecha_introduccion = fecha_introduccion;
-    }
+	public Date getFecha_incidencia() {
+		return fecha_incidencia;
+	}
 
-    public Profesor getProfesor() {
-        return profesor;
-    }
+	public void setFecha_incidencia(Date fecha_incidencia) {
+		this.fecha_incidencia = fecha_incidencia;
+	}
 
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
-    }
+	public Date getFecha_introduccion() {
+		return fecha_introduccion;
+	}
 
-    public Departamento getDepartamento() {
-        return departamento;
-    }
+	public void setFecha_introduccion(Date fecha_introduccion) {
+		this.fecha_introduccion = fecha_introduccion;
+	}
 
-    public void setDepartamento(Departamento departamento) {
-        this.departamento = departamento;
-    }
+	public Profesor getProfesor() {
+		return profesor;
+	}
 
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
 
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
+	public Departamento getDepartamento() {
+		return departamento;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+	public Ubicacion getUbicacion() {
+		return ubicacion;
+	}
 
-    public String getObservaciones() {
-        return observaciones;
-    }
+	public void setUbicacion(Ubicacion ubicacion) {
+		this.ubicacion = ubicacion;
+	}
 
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
+	public String getDescripcion() {
+		return descripcion;
+	}
 
-    public Estado getEstado() {
-        return estado;
-    }
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+	public String getObservaciones() {
+		return observaciones;
+	}
 
-    public Profesor getResponsable() {
-        return responsable;
-    }
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
 
-    public void setResponsable(Profesor responsable) {
-        this.responsable = responsable;
-    }
+	public Estado getEstado() {
+		return estado;
+	}
 
-    public Date getFecha_resolucion() {
-        return fecha_resolucion;
-    }
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 
-    public void setFecha_resolucion(Date fecha_resolucion) {
-        this.fecha_resolucion = fecha_resolucion;
-    }
+	public Profesor getResponsable() {
+		return responsable;
+	}
 
-    public Time getTiempo_invertido() {
-        return tiempo_invertido;
-    }
+	public void setResponsable(Profesor responsable) {
+		this.responsable = responsable;
+	}
 
-    public void setTiempo_invertido(Time tiempo_invertido) {
-        this.tiempo_invertido = tiempo_invertido;
-    }
+	public Date getFecha_resolucion() {
+		return fecha_resolucion;
+	}
 
-    public Blob getMas_info() {
-        return mas_info;
-    }
+	public void setFecha_resolucion(Date fecha_resolucion) {
+		this.fecha_resolucion = fecha_resolucion;
+	}
 
-    public void setMas_info(Blob mas_info) {
-        this.mas_info = mas_info;
-    }
+	public Time getTiempo_invertido() {
+		return tiempo_invertido;
+	}
 
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
+	public void setTiempo_invertido(Time tiempo_invertido) {
+		this.tiempo_invertido = tiempo_invertido;
+	}
 
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
-    }
+	public Blob getMas_info() {
+		return mas_info;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((idIncidencia == null) ? 0 : idIncidencia.hashCode());
-        result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
-        result = prime * result + ((fecha_incidencia == null) ? 0 : fecha_incidencia.hashCode());
-        result = prime * result + ((fecha_introduccion == null) ? 0 : fecha_introduccion.hashCode());
-        result = prime * result + ((profesor == null) ? 0 : profesor.hashCode());
-        result = prime * result + ((departamento == null) ? 0 : departamento.hashCode());
-        result = prime * result + ((ubicacion == null) ? 0 : ubicacion.hashCode());
-        result = prime * result + ((descripcion == null) ? 0 : descripcion.hashCode());
-        result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
-        result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-        result = prime * result + ((responsable == null) ? 0 : responsable.hashCode());
-        result = prime * result + ((fecha_resolucion == null) ? 0 : fecha_resolucion.hashCode());
-        result = prime * result + ((tiempo_invertido == null) ? 0 : tiempo_invertido.hashCode());
-        result = prime * result + ((mas_info == null) ? 0 : mas_info.hashCode());
-        result = prime * result + ((comentarios == null) ? 0 : comentarios.hashCode());
-        return result;
-    }
+	public void setMas_info(Blob mas_info) {
+		this.mas_info = mas_info;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Incidencia other = (Incidencia) obj;
-        if (idIncidencia == null) {
-            if (other.idIncidencia != null)
-                return false;
-        } else if (!idIncidencia.equals(other.idIncidencia))
-            return false;
-        if (tipo == null) {
-            if (other.tipo != null)
-                return false;
-        } else if (!tipo.equals(other.tipo))
-            return false;
-        if (fecha_incidencia == null) {
-            if (other.fecha_incidencia != null)
-                return false;
-        } else if (!fecha_incidencia.equals(other.fecha_incidencia))
-            return false;
-        if (fecha_introduccion == null) {
-            if (other.fecha_introduccion != null)
-                return false;
-        } else if (!fecha_introduccion.equals(other.fecha_introduccion))
-            return false;
-        if (profesor == null) {
-            if (other.profesor != null)
-                return false;
-        } else if (!profesor.equals(other.profesor))
-            return false;
-        if (departamento == null) {
-            if (other.departamento != null)
-                return false;
-        } else if (!departamento.equals(other.departamento))
-            return false;
-        if (ubicacion == null) {
-            if (other.ubicacion != null)
-                return false;
-        } else if (!ubicacion.equals(other.ubicacion))
-            return false;
-        if (descripcion == null) {
-            if (other.descripcion != null)
-                return false;
-        } else if (!descripcion.equals(other.descripcion))
-            return false;
-        if (observaciones == null) {
-            if (other.observaciones != null)
-                return false;
-        } else if (!observaciones.equals(other.observaciones))
-            return false;
-        if (estado == null) {
-            if (other.estado != null)
-                return false;
-        } else if (!estado.equals(other.estado))
-            return false;
-        if (responsable == null) {
-            if (other.responsable != null)
-                return false;
-        } else if (!responsable.equals(other.responsable))
-            return false;
-        if (fecha_resolucion == null) {
-            if (other.fecha_resolucion != null)
-                return false;
-        } else if (!fecha_resolucion.equals(other.fecha_resolucion))
-            return false;
-        if (tiempo_invertido == null) {
-            if (other.tiempo_invertido != null)
-                return false;
-        } else if (!tiempo_invertido.equals(other.tiempo_invertido))
-            return false;
-        if (mas_info == null) {
-            if (other.mas_info != null)
-                return false;
-        } else if (!mas_info.equals(other.mas_info))
-            return false;
-        if (comentarios == null) {
-            if (other.comentarios != null)
-                return false;
-        } else if (!comentarios.equals(other.comentarios))
-            return false;
-        return true;
-    }
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
 
-    @Override
-    public String toString() {
-        return "Incidencia [idIncidencia=" + idIncidencia + ", tipo=" + tipo + ", fecha_incidencia=" + fecha_incidencia
-                + ", fecha_introduccion=" + fecha_introduccion + ", profesor=" + profesor + ", departamento="
-                + departamento + ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + ", observaciones="
-                + observaciones + ", estado=" + estado + ", responsable=" + responsable + ", fecha_resolucion="
-                + fecha_resolucion + ", tiempo_invertido=" + tiempo_invertido + ", mas_info=" + mas_info
-                + ", comentarios=" + comentarios + "]";
-    }
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(comentarios, departamento, descripcion, estado, fecha_incidencia, fecha_introduccion,
+				fecha_resolucion, idIncidencia, incidenciaHardware, mas_info, observaciones, profesor, responsable,
+				tiempo_invertido, tipo, ubicacion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Incidencia other = (Incidencia) obj;
+		return Objects.equals(comentarios, other.comentarios) && Objects.equals(departamento, other.departamento)
+				&& Objects.equals(descripcion, other.descripcion) && Objects.equals(estado, other.estado)
+				&& Objects.equals(fecha_incidencia, other.fecha_incidencia)
+				&& Objects.equals(fecha_introduccion, other.fecha_introduccion)
+				&& Objects.equals(fecha_resolucion, other.fecha_resolucion)
+				&& Objects.equals(idIncidencia, other.idIncidencia)
+				&& Objects.equals(incidenciaHardware, other.incidenciaHardware)
+				&& Objects.equals(mas_info, other.mas_info) && Objects.equals(observaciones, other.observaciones)
+				&& Objects.equals(profesor, other.profesor) && Objects.equals(responsable, other.responsable)
+				&& Objects.equals(tiempo_invertido, other.tiempo_invertido) && Objects.equals(tipo, other.tipo)
+				&& Objects.equals(ubicacion, other.ubicacion);
+	}
+
+	@Override
+	public String toString() {
+		return "Incidencia [idIncidencia=" + idIncidencia + ", incidenciaHardware=" + incidenciaHardware + ", tipo="
+				+ tipo + ", fecha_incidencia=" + fecha_incidencia + ", fecha_introduccion=" + fecha_introduccion
+				+ ", profesor=" + profesor + ", departamento=" + departamento + ", ubicacion=" + ubicacion
+				+ ", descripcion=" + descripcion + ", observaciones=" + observaciones + ", estado=" + estado
+				+ ", responsable=" + responsable + ", fecha_resolucion=" + fecha_resolucion + ", tiempo_invertido="
+				+ tiempo_invertido + ", mas_info=" + mas_info + ", comentarios=" + comentarios + "]";
+	}
 }
