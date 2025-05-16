@@ -9,15 +9,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Comentario")
+@Table(name="comentario")
 public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idcomentario;
+    private Integer idComentario;
 	private String comentario;
 
 	@ManyToOne
-	@JoinColumn(name = "IdIncidencia", nullable = false)
+	@JoinColumn(name = "idIncidencia", nullable = false)
     private Incidencia incidencia;
 
 	public Comentario() {
@@ -25,17 +25,17 @@ public class Comentario {
 	}
 
 	public Comentario(Integer idComentario, String comentario, Incidencia incidencia) {
-		idcomentario = idComentario;
-		comentario = comentario;
+		this.idComentario = idComentario;
+		this.comentario = comentario;
 		this.incidencia = incidencia;
 	}
 
 	public Integer getIdComentario() {
-		return idcomentario;
+		return idComentario;
 	}
 
 	public void setIdComentario(Integer idComentario) {
-		idcomentario = idComentario;
+		this.idComentario = idComentario;
 	}
 
 	public String getComentario() {
@@ -43,7 +43,7 @@ public class Comentario {
 	}
 
 	public void setComentario(String comentario) {
-		comentario = comentario;
+		this.comentario = comentario;
 	}
 
 	public Incidencia getIncidencia() {
@@ -58,7 +58,7 @@ public class Comentario {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idcomentario == null) ? 0 : idcomentario.hashCode());
+		result = prime * result + ((idComentario == null) ? 0 : idComentario.hashCode());
 		result = prime * result + ((comentario == null) ? 0 : comentario.hashCode());
 		result = prime * result + ((incidencia == null) ? 0 : incidencia.hashCode());
 		return result;
@@ -73,10 +73,10 @@ public class Comentario {
 		if (getClass() != obj.getClass())
 			return false;
 		Comentario other = (Comentario) obj;
-		if (idcomentario == null) {
-			if (other.idcomentario != null)
+		if (idComentario == null) {
+			if (other.idComentario != null)
 				return false;
-		} else if (!idcomentario.equals(other.idcomentario))
+		} else if (!idComentario.equals(other.idComentario))
 			return false;
 		if (comentario == null) {
 			if (other.comentario != null)
@@ -93,7 +93,7 @@ public class Comentario {
 
 	@Override
 	public String toString() {
-		return "Comentario [IdComentario=" + idcomentario + ", Comentario=" + comentario + ", incidencia=" + incidencia
+		return "Comentario [IdComentario=" + idComentario + ", Comentario=" + comentario + ", incidencia=" + incidencia
 				+ "]";
 	}
 }

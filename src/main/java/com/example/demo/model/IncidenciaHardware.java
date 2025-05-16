@@ -8,13 +8,13 @@ import javax.persistence.Table;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "idIncidencia")
-@Table(name="Incidencia_Hardware")
+@Table(name="incidencia_hardware")
 public class IncidenciaHardware extends Incidencia {
     private String modelo;
     private String num_serie;
 
     @ManyToOne
-    @JoinColumn(name = "IdTipoHw") 
+    @JoinColumn(name = "tipo_hw") 
     private TiposHw tipoHw;
 
     public IncidenciaHardware() {

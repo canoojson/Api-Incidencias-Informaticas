@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TiposHw")
+@Table(name="tiposHw")
 public class TiposHw {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

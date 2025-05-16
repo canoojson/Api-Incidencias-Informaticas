@@ -5,11 +5,11 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="Ubicacion")
+@Table(name="ubicacion")
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_ubicacion")
+    @Column(name = "IdUbicacion")
     private Integer IdUbicacion;
     private String Nombre;
 	private String Descrip;

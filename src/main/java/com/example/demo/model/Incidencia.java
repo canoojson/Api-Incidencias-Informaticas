@@ -10,13 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="Incidencia")
+@Table(name="incidencia")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Incidencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ID;
+    private Integer idIncidencia;
 
     private String tipo;
 
@@ -35,7 +35,7 @@ public class Incidencia {
     private Departamento departamento;
 
     @ManyToOne
-    @JoinColumn(name = "id_ubicacion")
+    @JoinColumn(name = "IdUbicacion")
     private Ubicacion ubicacion;
 
     private String descripcion;
@@ -47,7 +47,7 @@ public class Incidencia {
     private Estado estado;
 
     @ManyToOne
-    @JoinColumn(name = "responsable")
+    @JoinColumn(name = "Responsable")
     private Profesor responsable;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
@@ -65,11 +65,11 @@ public class Incidencia {
     }
 
     public Integer getID() {
-        return ID;
+        return idIncidencia;
     }
 
     public void setID(Integer iD) {
-        ID = iD;
+    	idIncidencia = iD;
     }
 
     public String getTipo() {
@@ -188,7 +188,7 @@ public class Incidencia {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((ID == null) ? 0 : ID.hashCode());
+        result = prime * result + ((idIncidencia == null) ? 0 : idIncidencia.hashCode());
         result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
         result = prime * result + ((fecha_incidencia == null) ? 0 : fecha_incidencia.hashCode());
         result = prime * result + ((fecha_introduccion == null) ? 0 : fecha_introduccion.hashCode());
@@ -215,10 +215,10 @@ public class Incidencia {
         if (getClass() != obj.getClass())
             return false;
         Incidencia other = (Incidencia) obj;
-        if (ID == null) {
-            if (other.ID != null)
+        if (idIncidencia == null) {
+            if (other.idIncidencia != null)
                 return false;
-        } else if (!ID.equals(other.ID))
+        } else if (!idIncidencia.equals(other.idIncidencia))
             return false;
         if (tipo == null) {
             if (other.tipo != null)
@@ -295,7 +295,7 @@ public class Incidencia {
 
     @Override
     public String toString() {
-        return "Incidencia [ID=" + ID + ", tipo=" + tipo + ", fecha_incidencia=" + fecha_incidencia
+        return "Incidencia [idIncidencia=" + idIncidencia + ", tipo=" + tipo + ", fecha_incidencia=" + fecha_incidencia
                 + ", fecha_introduccion=" + fecha_introduccion + ", profesor=" + profesor + ", departamento="
                 + departamento + ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + ", observaciones="
                 + observaciones + ", estado=" + estado + ", responsable=" + responsable + ", fecha_resolucion="

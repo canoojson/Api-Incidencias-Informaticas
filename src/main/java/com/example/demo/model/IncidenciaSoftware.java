@@ -6,8 +6,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Incidencia_Software")
-@PrimaryKeyJoinColumn(name = "idIncidencia")
+@Table(name="incidencia_software")
+@PrimaryKeyJoinColumn(name = "IdIncidencia")
 public class IncidenciaSoftware extends Incidencia {
     @Column(name = "S.O.")
     private String SO;

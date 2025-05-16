@@ -54,7 +54,6 @@ public class ProfesorController {
             Profesor profesor = profesorExistente.get();
             profesor.setNombre(detallesProfesor.getNombre());
             profesor.setApellidos(detallesProfesor.getApellidos());
-            profesor.setDescripcion(detallesProfesor.getDescripcion());
             profesor.setDepartamento(detallesProfesor.getDepartamento());
             profesor.setEmail(detallesProfesor.getEmail());
             profesor.setDni(detallesProfesor.getDni());
