@@ -3,6 +3,7 @@ package com.example.demo.model;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.sql.Blob;
 import java.sql.Time;
@@ -11,17 +12,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="incidencia")
+@Table(name="incidencias")
 
 public class Incidencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idIncidencia")
-    private Integer idIncidencia;
-
-    @OneToOne(mappedBy = "incidencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private IncidenciaHardware incidenciaHardware;
+    private Integer IdIncidencia;
     
     private String tipo;
 
@@ -32,11 +29,11 @@ public class Incidencia {
     private Date fecha_introduccion;
 
     @ManyToOne
-    @JoinColumn(name = "idProfesor")
+    @JoinColumn(name = "IdProfesor")
     private Profesor profesor;
 
     @ManyToOne
-    @JoinColumn(name = "idDepartamento")
+    @JoinColumn(name = "IdDepartamento")
     private Departamento departamento;
 
     @ManyToOne
@@ -60,10 +57,19 @@ public class Incidencia {
 
     private Time tiempo_invertido;
 
-    private Blob mas_info;
+    private byte[] mas_info;
 
-    @OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Comentario> comentarios;
+    
+    @OneToOne(mappedBy = "incidencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private IncidenciaHardware incidenciaHardware;
+    
+    @OneToOne(mappedBy = "incidencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private IncidenciaSoftware incidenciaSoftware;
     
     
 
@@ -74,9 +80,9 @@ public class Incidencia {
 	public Incidencia(Integer idIncidencia, IncidenciaHardware incidenciaHardware, String tipo, Date fecha_incidencia,
 			Date fecha_introduccion, Profesor profesor, Departamento departamento, Ubicacion ubicacion,
 			String descripcion, String observaciones, Estado estado, Profesor responsable, Date fecha_resolucion,
-			Time tiempo_invertido, Blob mas_info, List<Comentario> comentarios) {
+			Time tiempo_invertido, byte[] mas_info, List<Comentario> comentarios) {
 		super();
-		this.idIncidencia = idIncidencia;
+		this.IdIncidencia = idIncidencia;
 		this.incidenciaHardware = incidenciaHardware;
 		this.tipo = tipo;
 		this.fecha_incidencia = fecha_incidencia;
@@ -95,11 +101,11 @@ public class Incidencia {
 	}
 
 	public Integer getIdIncidencia() {
-		return idIncidencia;
+		return IdIncidencia;
 	}
 
 	public void setIdIncidencia(Integer idIncidencia) {
-		this.idIncidencia = idIncidencia;
+		this.IdIncidencia = idIncidencia;
 	}
 
 	public IncidenciaHardware getIncidenciaHardware() {
@@ -206,11 +212,11 @@ public class Incidencia {
 		this.tiempo_invertido = tiempo_invertido;
 	}
 
-	public Blob getMas_info() {
+	public byte[] getMas_info() {
 		return mas_info;
 	}
 
-	public void setMas_info(Blob mas_info) {
+	public void setMas_info(byte[] mas_info) {
 		this.mas_info = mas_info;
 	}
 
@@ -225,7 +231,7 @@ public class Incidencia {
 	@Override
 	public int hashCode() {
 		return Objects.hash(comentarios, departamento, descripcion, estado, fecha_incidencia, fecha_introduccion,
-				fecha_resolucion, idIncidencia, incidenciaHardware, mas_info, observaciones, profesor, responsable,
+				fecha_resolucion, IdIncidencia, incidenciaHardware, mas_info, observaciones, profesor, responsable,
 				tiempo_invertido, tipo, ubicacion);
 	}
 
@@ -243,7 +249,7 @@ public class Incidencia {
 				&& Objects.equals(fecha_incidencia, other.fecha_incidencia)
 				&& Objects.equals(fecha_introduccion, other.fecha_introduccion)
 				&& Objects.equals(fecha_resolucion, other.fecha_resolucion)
-				&& Objects.equals(idIncidencia, other.idIncidencia)
+				&& Objects.equals(IdIncidencia, other.IdIncidencia)
 				&& Objects.equals(incidenciaHardware, other.incidenciaHardware)
 				&& Objects.equals(mas_info, other.mas_info) && Objects.equals(observaciones, other.observaciones)
 				&& Objects.equals(profesor, other.profesor) && Objects.equals(responsable, other.responsable)
@@ -253,7 +259,7 @@ public class Incidencia {
 
 	@Override
 	public String toString() {
-		return "Incidencia [idIncidencia=" + idIncidencia + ", incidenciaHardware=" + incidenciaHardware + ", tipo="
+		return "Incidencia [idIncidencia=" + IdIncidencia + ", incidenciaHardware=" + incidenciaHardware + ", tipo="
 				+ tipo + ", fecha_incidencia=" + fecha_incidencia + ", fecha_introduccion=" + fecha_introduccion
 				+ ", profesor=" + profesor + ", departamento=" + departamento + ", ubicacion=" + ubicacion
 				+ ", descripcion=" + descripcion + ", observaciones=" + observaciones + ", estado=" + estado

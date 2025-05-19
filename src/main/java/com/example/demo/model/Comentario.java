@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import java.util.Date;
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,34 +11,46 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-@Table(name="comentario")
+@Table(name="comentarios")
 public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idComentario;
+    private Integer IdComentario;
 	private String Comentario;
+	private Date fecha_comentario;
+	
+	@ManyToOne
+    @JoinColumn(name = "IdProfesor")
+    private Profesor profesor;
 
 	@ManyToOne
-	@JoinColumn(name = "idIncidencia", nullable = false)
+	@JsonBackReference
+	@JoinColumn(name = "IdIncidencia")
     private Incidencia incidencia;
 
 	public Comentario() {
 		super();
 	}
 
-	public Comentario(Integer idComentario, String comentario, Incidencia incidencia) {
-		this.idComentario = idComentario;
-		this.Comentario = comentario;
+	public Comentario(Integer idComentario, String comentario, Date fecha_comentario, Profesor profesor,
+			Incidencia incidencia) {
+		super();
+		IdComentario = idComentario;
+		Comentario = comentario;
+		this.fecha_comentario = fecha_comentario;
+		this.profesor = profesor;
 		this.incidencia = incidencia;
 	}
 
 	public Integer getIdComentario() {
-		return idComentario;
+		return IdComentario;
 	}
 
 	public void setIdComentario(Integer idComentario) {
-		this.idComentario = idComentario;
+		IdComentario = idComentario;
 	}
 
 	public String getComentario() {
@@ -43,7 +58,23 @@ public class Comentario {
 	}
 
 	public void setComentario(String comentario) {
-		this.Comentario = comentario;
+		Comentario = comentario;
+	}
+
+	public Date getFecha_comentario() {
+		return fecha_comentario;
+	}
+
+	public void setFecha_comentario(Date fecha_comentario) {
+		this.fecha_comentario = fecha_comentario;
+	}
+
+	public Profesor getProfesor() {
+		return profesor;
+	}
+
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
 	}
 
 	public Incidencia getIncidencia() {
@@ -56,12 +87,7 @@ public class Comentario {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((idComentario == null) ? 0 : idComentario.hashCode());
-		result = prime * result + ((Comentario == null) ? 0 : Comentario.hashCode());
-		result = prime * result + ((incidencia == null) ? 0 : incidencia.hashCode());
-		return result;
+		return Objects.hash(Comentario, IdComentario, fecha_comentario, incidencia, profesor);
 	}
 
 	@Override
@@ -73,27 +99,14 @@ public class Comentario {
 		if (getClass() != obj.getClass())
 			return false;
 		Comentario other = (Comentario) obj;
-		if (idComentario == null) {
-			if (other.idComentario != null)
-				return false;
-		} else if (!idComentario.equals(other.idComentario))
-			return false;
-		if (Comentario == null) {
-			if (other.Comentario != null)
-				return false;
-		} else if (!Comentario.equals(other.Comentario))
-			return false;
-		if (incidencia == null) {
-			if (other.incidencia != null)
-				return false;
-		} else if (!incidencia.equals(other.incidencia))
-			return false;
-		return true;
+		return Objects.equals(Comentario, other.Comentario) && Objects.equals(IdComentario, other.IdComentario)
+				&& Objects.equals(fecha_comentario, other.fecha_comentario)
+				&& Objects.equals(incidencia, other.incidencia) && Objects.equals(profesor, other.profesor);
 	}
 
 	@Override
 	public String toString() {
-		return "Comentario [IdComentario=" + idComentario + ", Comentario=" + Comentario + ", incidencia=" + incidencia
-				+ "]";
+		return "Comentario [IdComentario=" + IdComentario + ", Comentario=" + Comentario + ", fecha_comentario="
+				+ fecha_comentario + ", profesor=" + profesor + ", incidencia=" + incidencia + "]";
 	}
 }

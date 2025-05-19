@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class TiposHw {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTipoHw;
+    private Integer IdTipoHw;
     private String descrip;
 
     @OneToMany(mappedBy = "tipoHw")
@@ -24,15 +24,15 @@ public class TiposHw {
         super();
     }
     public TiposHw(Integer idTipoHw, String descrip, List<IncidenciaHardware> incidenciasHardware) {
-        this.idTipoHw = idTipoHw;
+        this.IdTipoHw = idTipoHw;
         this.descrip = descrip;
         this.incidenciasHardware = incidenciasHardware;
     }
     public Integer getIdTipoHw() {
-        return idTipoHw;
+        return IdTipoHw;
     }
     public void setIdTipoHw(Integer idTipoHw) {
-        this.idTipoHw = idTipoHw;
+        this.IdTipoHw = idTipoHw;
     }
     public String getDescrip() {
         return descrip;
@@ -50,7 +50,7 @@ public class TiposHw {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((idTipoHw == null) ? 0 : idTipoHw.hashCode());
+        result = prime * result + ((IdTipoHw == null) ? 0 : IdTipoHw.hashCode());
         result = prime * result + ((descrip == null) ? 0 : descrip.hashCode());
         result = prime * result + ((incidenciasHardware == null) ? 0 : incidenciasHardware.hashCode());
         return result;
@@ -64,10 +64,10 @@ public class TiposHw {
         if (getClass() != obj.getClass())
             return false;
         TiposHw other = (TiposHw) obj;
-        if (idTipoHw == null) {
-            if (other.idTipoHw != null)
+        if (IdTipoHw == null) {
+            if (other.IdTipoHw != null)
                 return false;
-        } else if (!idTipoHw.equals(other.idTipoHw))
+        } else if (!IdTipoHw.equals(other.IdTipoHw))
             return false;
         if (descrip == null) {
             if (other.descrip != null)
@@ -83,7 +83,7 @@ public class TiposHw {
     }
     @Override
     public String toString() {
-        return "TiposHw [idTipoHw=" + idTipoHw + ", descrip=" + descrip + ", incidenciasHardware=" + incidenciasHardware
+        return "TiposHw [idTipoHw=" + IdTipoHw + ", descrip=" + descrip + ", incidenciasHardware=" + incidenciasHardware
                 + "]";
     }
 }

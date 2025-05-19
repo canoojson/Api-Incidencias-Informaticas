@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ public class Profesor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idProfesor;
+    private Integer IdProfesor;
 
     private String dni;
 
@@ -21,7 +22,7 @@ public class Profesor {
     private String Apellidos;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "codDpto")
+    @JoinColumn(name = "IdDpto")
     private Departamento departamento;
 
     private String email;
@@ -34,12 +35,35 @@ public class Profesor {
 
     private String username;
 
+	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Comentario> comentarios;
+
+	public Profesor() {
+		super();
+	}
+
+	public Profesor(Integer idProfesor, String dni, String nombre, String apellidos, Departamento departamento,
+			String email, String pwd, Rol rol, String username, List<Comentario> comentarios) {
+		super();
+		IdProfesor = idProfesor;
+		this.dni = dni;
+		Nombre = nombre;
+		Apellidos = apellidos;
+		this.departamento = departamento;
+		this.email = email;
+		this.pwd = pwd;
+		this.rol = rol;
+		this.username = username;
+		this.comentarios = comentarios;
+	}
+
+	
 	public Integer getIdProfesor() {
-		return idProfesor;
+		return IdProfesor;
 	}
 
 	public void setIdProfesor(Integer idProfesor) {
-		this.idProfesor = idProfesor;
+		IdProfesor = idProfesor;
 	}
 
 	public String getDni() {
@@ -106,9 +130,17 @@ public class Profesor {
 		this.username = username;
 	}
 
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(Apellidos, Nombre, departamento, dni, email, idProfesor, pwd, rol, username);
+		return Objects.hash(Apellidos, IdProfesor, Nombre, comentarios, departamento, dni, email, pwd, rol, username);
 	}
 
 	@Override
@@ -120,17 +152,19 @@ public class Profesor {
 		if (getClass() != obj.getClass())
 			return false;
 		Profesor other = (Profesor) obj;
-		return Objects.equals(Apellidos, other.Apellidos) && Objects.equals(Nombre, other.Nombre)
+		return Objects.equals(Apellidos, other.Apellidos) && Objects.equals(IdProfesor, other.IdProfesor)
+				&& Objects.equals(Nombre, other.Nombre) && Objects.equals(comentarios, other.comentarios)
 				&& Objects.equals(departamento, other.departamento) && Objects.equals(dni, other.dni)
-				&& Objects.equals(email, other.email) && Objects.equals(idProfesor, other.idProfesor)
-				&& Objects.equals(pwd, other.pwd) && Objects.equals(rol, other.rol)
-				&& Objects.equals(username, other.username);
+				&& Objects.equals(email, other.email) && Objects.equals(pwd, other.pwd)
+				&& Objects.equals(rol, other.rol) && Objects.equals(username, other.username);
 	}
 
 	@Override
 	public String toString() {
-		return "Profesor [idProfesor=" + idProfesor + ", dni=" + dni + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos
+		return "Profesor [IdProfesor=" + IdProfesor + ", dni=" + dni + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos
 				+ ", departamento=" + departamento + ", email=" + email + ", pwd=" + pwd + ", rol=" + rol
-				+ ", username=" + username + "]";
+				+ ", username=" + username + ", comentarios=" + comentarios + "]";
 	}
+	
+	
 }

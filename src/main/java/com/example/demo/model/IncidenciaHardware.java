@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -11,15 +10,17 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-@Table(name="incidencia_hardware")
+@Table(name="incidencias_hardware")
 public class IncidenciaHardware {
 	@Id
 	private Integer IDH;
 	
 	@OneToOne
-    @MapsId
-    @JoinColumn(name = "idIncidencia") 
+    @JoinColumn(name = "IdIncidencia") 
+	@JsonBackReference
     private Incidencia incidencia;
 	
     private String modelo;
@@ -28,9 +29,6 @@ public class IncidenciaHardware {
     @ManyToOne
     @JoinColumn(name = "tipo_hw") 
     private TiposHw tipoHw;
-
-    
-    
     
 	public IncidenciaHardware() {
 		super();

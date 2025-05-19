@@ -10,19 +10,19 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-@Table(name="incidencia_software")
+@Table(name="incidencias_software")
 public class IncidenciaSoftware{
-	
 	@Id
 	private Integer IDS;
 	
 	@OneToOne
-    @MapsId 
-    @JoinColumn(name = "idIncidencia") 
+    @JoinColumn(name = "IdIncidencia") 
+	@JsonBackReference
     private Incidencia incidencia;
 	
-    @Column(name = "S.O.")
     private String SO;
     private String software;
     private String clave;

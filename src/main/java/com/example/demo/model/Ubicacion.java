@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="ubicacion")
+@Table(name="ubicaciones")
 public class Ubicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Ubicacion {
 		return IdUbicacion;
 	}
 	public void setIdUbicacion(Integer IdUbicacion) {
-		IdUbicacion = IdUbicacion;
+		this.IdUbicacion = IdUbicacion;
 	}
 	public String getNombre() {
 		return Nombre;

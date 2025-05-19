@@ -3,21 +3,25 @@ package com.example.demo.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="permisos")
 public class Permiso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codPermiso;
+    private Integer IdPermiso;
     private String descrip;
 
-    @ManyToMany(mappedBy = "permisos")
+    @ManyToMany(mappedBy = "permisos", fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Rol> roles;
 
     public Permiso() {
@@ -25,17 +29,17 @@ public class Permiso {
     }
 
     public Permiso(Integer codPermiso, String descrip, List<Rol> roles) {
-        this.codPermiso = codPermiso;
+        this.IdPermiso = codPermiso;
         this.descrip = descrip;
         this.roles = roles;
     }
 
     public Integer getCodPermiso() {
-        return codPermiso;
+        return IdPermiso;
     }
 
     public void setCodPermiso(Integer codPermiso) {
-        this.codPermiso = codPermiso;
+        this.IdPermiso = codPermiso;
     }
 
     public String getDescrip() {
@@ -58,7 +62,7 @@ public class Permiso {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((codPermiso == null) ? 0 : codPermiso.hashCode());
+        result = prime * result + ((IdPermiso == null) ? 0 : IdPermiso.hashCode());
         result = prime * result + ((descrip == null) ? 0 : descrip.hashCode());
         result = prime * result + ((roles == null) ? 0 : roles.hashCode());
         return result;
@@ -73,10 +77,10 @@ public class Permiso {
         if (getClass() != obj.getClass())
             return false;
         Permiso other = (Permiso) obj;
-        if (codPermiso == null) {
-            if (other.codPermiso != null)
+        if (IdPermiso == null) {
+            if (other.IdPermiso != null)
                 return false;
-        } else if (!codPermiso.equals(other.codPermiso))
+        } else if (!IdPermiso.equals(other.IdPermiso))
             return false;
         if (descrip == null) {
             if (other.descrip != null)
@@ -93,7 +97,7 @@ public class Permiso {
 
     @Override
     public String toString() {
-        return "Permiso [codPermiso=" + codPermiso + ", descrip=" + descrip + ", roles=" + roles + "]";
+        return "Permiso [codPermiso=" + IdPermiso + ", descrip=" + descrip + ", roles=" + roles + "]";
     }
     
     

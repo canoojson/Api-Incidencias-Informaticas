@@ -12,7 +12,7 @@ public class Departamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codDpto;
+    private Integer IdDpto;
     private String nombreDpto;
 
     
@@ -22,15 +22,15 @@ public class Departamento {
 
 	public Departamento(Integer codDpto, String nombreDpto) {
 		super();
-		this.codDpto = codDpto;
+		this.IdDpto = codDpto;
 		this.nombreDpto = nombreDpto;
 	}
 
 	public Integer getCodDpto() {
-		return codDpto;
+		return IdDpto;
 	}
 	public void setCodDpto(Integer codDpto) {
-		this.codDpto = codDpto;
+		this.IdDpto = codDpto;
 	}
 	public String getNombreDpto() {
 		return nombreDpto;
@@ -43,7 +43,7 @@ public class Departamento {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codDpto == null) ? 0 : codDpto.hashCode());
+		result = prime * result + ((IdDpto == null) ? 0 : IdDpto.hashCode());
 		result = prime * result + ((nombreDpto == null) ? 0 : nombreDpto.hashCode());
 		return result;
 	}
@@ -57,10 +57,10 @@ public class Departamento {
 		if (getClass() != obj.getClass())
 			return false;
 		Departamento other = (Departamento) obj;
-		if (codDpto == null) {
-			if (other.codDpto != null)
+		if (IdDpto == null) {
+			if (other.IdDpto != null)
 				return false;
-		} else if (!codDpto.equals(other.codDpto))
+		} else if (!IdDpto.equals(other.IdDpto))
 			return false;
 		if (nombreDpto == null) {
 			if (other.nombreDpto != null)
@@ -72,7 +72,7 @@ public class Departamento {
 
 	@Override
 	public String toString() {
-		return "Departamento [codDpto=" + codDpto + ", nombreDpto=" + nombreDpto + "]";
+		return "Departamento [codDpto=" + IdDpto + ", nombreDpto=" + nombreDpto + "]";
 	}
 	
 

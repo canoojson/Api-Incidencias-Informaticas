@@ -1,9 +1,12 @@
 package com.example.demo.model;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,39 +15,42 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="roles")
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idRol")
-    private Integer idRol;
+    @Column(name = "IdRol")
+    private Integer IdRol;
     private String descrip;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonManagedReference
     @JoinTable(
         name = "roles_permisos",
-        joinColumns = @JoinColumn(name = "idRol",referencedColumnName = "idRol"),
-        inverseJoinColumns = @JoinColumn(name = "codPermiso",referencedColumnName = "codPermiso")
+        joinColumns = @JoinColumn(name = "IdRol"),
+        inverseJoinColumns = @JoinColumn(name = "IdPermiso")
     )
-    private List<Permiso> permisos;
+    private Set<Permiso> permisos = new HashSet<>();
 
     public Rol() {
         super();
     }
 
-    public Rol(Integer idRol, String descrip, List<Permiso> permisos) {
+    public Rol(Integer idRol, String descrip, Set<Permiso> permisos) {
         super();
-        this.idRol = idRol;
+        this.IdRol = idRol;
         this.descrip = descrip;
         this.permisos = permisos;
     }
 
     public Integer getIdRol() {
-        return idRol;
+        return IdRol;
     }
     public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
+        this.IdRol = idRol;
     }
     public String getDescrip() {
         return descrip;
@@ -52,10 +58,10 @@ public class Rol {
     public void setDescrip(String descrip) {
         this.descrip = descrip;
     }
-    public List<Permiso> getPermisos() {
+    public Set<Permiso> getPermisos() {
         return permisos;
     }
-    public void setPermisos(List<Permiso> permisos) {
+    public void setPermisos(Set<Permiso> permisos) {
         this.permisos = permisos;
     }
 
@@ -65,7 +71,7 @@ public class Rol {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((idRol == null) ? 0 : idRol.hashCode());
+        result = prime * result + ((IdRol == null) ? 0 : IdRol.hashCode());
         result = prime * result + ((descrip == null) ? 0 : descrip.hashCode());
         result = prime * result + ((permisos == null) ? 0 : permisos.hashCode());
         return result;
@@ -80,10 +86,10 @@ public class Rol {
         if (getClass() != obj.getClass())
             return false;
         Rol other = (Rol) obj;
-        if (idRol == null) {
-            if (other.idRol != null)
+        if (IdRol == null) {
+            if (other.IdRol != null)
                 return false;
-        } else if (!idRol.equals(other.idRol))
+        } else if (!IdRol.equals(other.IdRol))
             return false;
         if (descrip == null) {
             if (other.descrip != null)
@@ -100,6 +106,6 @@ public class Rol {
 
     @Override
     public String toString() {
-        return "Rol [idRol=" + idRol + ", descrip=" + descrip + ", permisos=" + permisos + "]";
+        return "Rol [idRol=" + IdRol + ", descrip=" + descrip + ", permisos=" + permisos + "]";
     }  
 }
