@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="permisos")
@@ -21,7 +22,7 @@ public class Permiso {
     private String descrip;
 
     @ManyToMany(mappedBy = "permisos", fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonIgnore
     private List<Rol> roles;
 
     public Permiso() {

@@ -55,6 +55,7 @@ public class IncidenciaController {
             incidencia.setFecha_introduccion(detallesIncidencia.getFecha_introduccion());
             incidencia.setFecha_resolucion(detallesIncidencia.getFecha_resolucion());
             incidencia.setProfesor(detallesIncidencia.getProfesor());
+            incidencia.setResponsable(detallesIncidencia.getResponsable());
             incidencia.setDepartamento(detallesIncidencia.getDepartamento());
             incidencia.setUbicacion(detallesIncidencia.getUbicacion());
             incidencia.setObservaciones(detallesIncidencia.getObservaciones());

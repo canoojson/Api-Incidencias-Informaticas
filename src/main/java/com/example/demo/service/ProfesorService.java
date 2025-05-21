@@ -53,4 +53,7 @@ public class ProfesorService {
     public List<Object[]> getProfesoresByRol(String nombreRol) {
         return profesorRepository.findProfesoresByRol(nombreRol);
     }
+    public Profesor validarInicioSesion(String username, String pwd) {
+    	return profesorRepository.validarInicioSesion(username, pwd);
+    }
 }

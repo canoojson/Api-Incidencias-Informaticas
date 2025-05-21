@@ -14,5 +14,8 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Integer> {
 	
 	@Query("SELECT p FROM Profesor p WHERE p.rol = :nombreRol")
     List<Object[]> findProfesoresByRol(@Param("nombreRol")String nombreRol);
+    
+    @Query("Select p from Profesor p where p.username = :username and p.pwd = :pwd")
+    Profesor validarInicioSesion(@Param("username")String username, @Param("pwd")String pwd);
 }
 

@@ -27,7 +27,6 @@ public class Rol {
     private String descrip;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonManagedReference
     @JoinTable(
         name = "roles_permisos",
         joinColumns = @JoinColumn(name = "IdRol"),

@@ -59,7 +59,7 @@ public class Incidencia {
 
     private byte[] mas_info;
 
-    @OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "incidencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Comentario> comentarios;
     
