@@ -19,6 +19,7 @@ public class ProfesorService {
 
     
     public Profesor crearProfesor(Profesor profesor) {
+    	profesor.setPwd(HashUtil.md5(profesor.getPwd()));
         return profesorRepository.save(profesor);
     }
 
@@ -34,6 +35,7 @@ public class ProfesorService {
 
     
     public Profesor actualizarProfesor(Profesor profesor) {
+    	profesor.setPwd(HashUtil.md5(profesor.getPwd()));
         return profesorRepository.save(profesor);
     }
 
