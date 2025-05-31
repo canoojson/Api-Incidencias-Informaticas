@@ -28,7 +28,7 @@ public class IncidenciaController {
 
     @PostMapping
     public ResponseEntity<Incidencia> crearincidencia(@RequestBody Incidencia incidencia) {
-        Incidencia nuevaIncidencia = incidenciaService.crearIncidencia(incidencia);
+        Incidencia nuevaIncidencia = incidenciaService.crearIncidencia(incidencia, incidencia.getIncidenciaHardware(), incidencia.getIncidenciaSoftware());
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaIncidencia);
     }
     // Read all
@@ -49,6 +49,7 @@ public class IncidenciaController {
     public ResponseEntity<Incidencia> actualizarIncidencia(@PathVariable Integer id, @RequestBody Incidencia detallesIncidencia) {
         Optional<Incidencia> incidenciaExistente = incidenciaService.obtenerIncidenciaPorId(id);
         if (incidenciaExistente.isPresent()) {
+        	System.out.println("AQUI HE ENTRADO CON ESTA INCIDENCIA HARDWARE/SOFTWARE" + detallesIncidencia.getIncidenciaHardware().toString() );
             Incidencia incidencia = incidenciaExistente.get();
             incidencia.setTipo(detallesIncidencia.getTipo());
             incidencia.setFecha_incidencia(detallesIncidencia.getFecha_incidencia());
@@ -64,7 +65,9 @@ public class IncidenciaController {
             incidencia.setMas_info(detallesIncidencia.getMas_info());
             incidencia.setComentarios(detallesIncidencia.getComentarios());
             incidencia.setDescripcion(detallesIncidencia.getDescripcion());
-            Incidencia incidenciaActualizada = incidenciaService.actualizarIncidencia(incidencia);
+            incidencia.setIncidenciaHardware(detallesIncidencia.getIncidenciaHardware());
+            incidencia.setIncidenciaSoftware(detallesIncidencia.getIncidenciaSoftware());
+            Incidencia incidenciaActualizada = incidenciaService.actualizarIncidencia(incidencia, incidencia.getIncidenciaHardware(), incidencia.getIncidenciaSoftware());
             return ResponseEntity.ok(incidenciaActualizada);
         } else {
             return ResponseEntity.notFound().build();

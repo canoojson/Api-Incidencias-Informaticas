@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.sql.Blob;
 import java.sql.Time;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -63,27 +64,25 @@ public class Incidencia {
     @JsonManagedReference
     private List<Comentario> comentarios;
     
-    @OneToOne(mappedBy = "incidencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToOne(mappedBy="incidencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private IncidenciaHardware incidenciaHardware;
     
-    @OneToOne(mappedBy = "incidencia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToOne(mappedBy="incidencia", cascade = CascadeType.ALL, fetch = FetchType.EAGER,orphanRemoval = true)
     private IncidenciaSoftware incidenciaSoftware;
-    
-    
 
+    
+    
 	public Incidencia() {
 		super();
 	}
 
-	public Incidencia(Integer idIncidencia, IncidenciaHardware incidenciaHardware, String tipo, Date fecha_incidencia,
-			Date fecha_introduccion, Profesor profesor, Departamento departamento, Ubicacion ubicacion,
-			String descripcion, String observaciones, Estado estado, Profesor responsable, Date fecha_resolucion,
-			Time tiempo_invertido, byte[] mas_info, List<Comentario> comentarios) {
+	public Incidencia(Integer idIncidencia, String tipo, Date fecha_incidencia, Date fecha_introduccion,
+			Profesor profesor, Departamento departamento, Ubicacion ubicacion, String descripcion, String observaciones,
+			Estado estado, Profesor responsable, Date fecha_resolucion, Time tiempo_invertido, byte[] mas_info,
+			List<Comentario> comentarios, IncidenciaHardware incidenciaHardware,
+			IncidenciaSoftware incidenciaSoftware) {
 		super();
-		this.IdIncidencia = idIncidencia;
-		this.incidenciaHardware = incidenciaHardware;
+		IdIncidencia = idIncidencia;
 		this.tipo = tipo;
 		this.fecha_incidencia = fecha_incidencia;
 		this.fecha_introduccion = fecha_introduccion;
@@ -98,6 +97,8 @@ public class Incidencia {
 		this.tiempo_invertido = tiempo_invertido;
 		this.mas_info = mas_info;
 		this.comentarios = comentarios;
+		this.incidenciaHardware = incidenciaHardware;
+		this.incidenciaSoftware = incidenciaSoftware;
 	}
 
 	public Integer getIdIncidencia() {
@@ -105,15 +106,7 @@ public class Incidencia {
 	}
 
 	public void setIdIncidencia(Integer idIncidencia) {
-		this.IdIncidencia = idIncidencia;
-	}
-
-	public IncidenciaHardware getIncidenciaHardware() {
-		return incidenciaHardware;
-	}
-
-	public void setIncidenciaHardware(IncidenciaHardware incidenciaHardware) {
-		this.incidenciaHardware = incidenciaHardware;
+		IdIncidencia = idIncidencia;
 	}
 
 	public String getTipo() {
@@ -228,11 +221,31 @@ public class Incidencia {
 		this.comentarios = comentarios;
 	}
 
+	public IncidenciaHardware getIncidenciaHardware() {
+		return incidenciaHardware;
+	}
+
+	public void setIncidenciaHardware(IncidenciaHardware incidenciaHardware) {
+		this.incidenciaHardware = incidenciaHardware;
+	}
+
+	public IncidenciaSoftware getIncidenciaSoftware() {
+		return incidenciaSoftware;
+	}
+
+	public void setIncidenciaSoftware(IncidenciaSoftware incidenciaSoftware) {
+		this.incidenciaSoftware = incidenciaSoftware;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(comentarios, departamento, descripcion, estado, fecha_incidencia, fecha_introduccion,
-				fecha_resolucion, IdIncidencia, incidenciaHardware, mas_info, observaciones, profesor, responsable,
-				tiempo_invertido, tipo, ubicacion);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(mas_info);
+		result = prime * result + Objects.hash(IdIncidencia, comentarios, departamento, descripcion, estado,
+				fecha_incidencia, fecha_introduccion, fecha_resolucion, incidenciaHardware, incidenciaSoftware,
+				observaciones, profesor, responsable, tiempo_invertido, tipo, ubicacion);
+		return result;
 	}
 
 	@Override
@@ -244,14 +257,14 @@ public class Incidencia {
 		if (getClass() != obj.getClass())
 			return false;
 		Incidencia other = (Incidencia) obj;
-		return Objects.equals(comentarios, other.comentarios) && Objects.equals(departamento, other.departamento)
-				&& Objects.equals(descripcion, other.descripcion) && Objects.equals(estado, other.estado)
-				&& Objects.equals(fecha_incidencia, other.fecha_incidencia)
+		return Objects.equals(IdIncidencia, other.IdIncidencia) && Objects.equals(comentarios, other.comentarios)
+				&& Objects.equals(departamento, other.departamento) && Objects.equals(descripcion, other.descripcion)
+				&& Objects.equals(estado, other.estado) && Objects.equals(fecha_incidencia, other.fecha_incidencia)
 				&& Objects.equals(fecha_introduccion, other.fecha_introduccion)
 				&& Objects.equals(fecha_resolucion, other.fecha_resolucion)
-				&& Objects.equals(IdIncidencia, other.IdIncidencia)
 				&& Objects.equals(incidenciaHardware, other.incidenciaHardware)
-				&& Objects.equals(mas_info, other.mas_info) && Objects.equals(observaciones, other.observaciones)
+				&& Objects.equals(incidenciaSoftware, other.incidenciaSoftware)
+				&& Arrays.equals(mas_info, other.mas_info) && Objects.equals(observaciones, other.observaciones)
 				&& Objects.equals(profesor, other.profesor) && Objects.equals(responsable, other.responsable)
 				&& Objects.equals(tiempo_invertido, other.tiempo_invertido) && Objects.equals(tipo, other.tipo)
 				&& Objects.equals(ubicacion, other.ubicacion);
@@ -259,11 +272,14 @@ public class Incidencia {
 
 	@Override
 	public String toString() {
-		return "Incidencia [idIncidencia=" + IdIncidencia + ", incidenciaHardware=" + incidenciaHardware + ", tipo="
-				+ tipo + ", fecha_incidencia=" + fecha_incidencia + ", fecha_introduccion=" + fecha_introduccion
-				+ ", profesor=" + profesor + ", departamento=" + departamento + ", ubicacion=" + ubicacion
-				+ ", descripcion=" + descripcion + ", observaciones=" + observaciones + ", estado=" + estado
-				+ ", responsable=" + responsable + ", fecha_resolucion=" + fecha_resolucion + ", tiempo_invertido="
-				+ tiempo_invertido + ", mas_info=" + mas_info + ", comentarios=" + comentarios + "]";
+		return "Incidencia [IdIncidencia=" + IdIncidencia + ", tipo=" + tipo + ", fecha_incidencia=" + fecha_incidencia
+				+ ", fecha_introduccion=" + fecha_introduccion + ", profesor=" + profesor + ", departamento="
+				+ departamento + ", ubicacion=" + ubicacion + ", descripcion=" + descripcion + ", observaciones="
+				+ observaciones + ", estado=" + estado + ", responsable=" + responsable + ", fecha_resolucion="
+				+ fecha_resolucion + ", tiempo_invertido=" + tiempo_invertido + ", mas_info="
+				+ Arrays.toString(mas_info) + ", comentarios=" + comentarios + ", incidenciaHardware="
+				+ incidenciaHardware + ", incidenciaSoftware=" + incidenciaSoftware + "]";
 	}
+    
+    
 }

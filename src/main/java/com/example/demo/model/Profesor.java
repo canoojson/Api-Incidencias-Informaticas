@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="profesores")
@@ -36,6 +38,7 @@ public class Profesor {
     private String username;
 
 	@OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private List<Comentario> comentarios;
 
 	public Profesor() {

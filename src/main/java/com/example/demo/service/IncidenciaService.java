@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Incidencia;
+import com.example.demo.model.IncidenciaHardware;
+import com.example.demo.model.IncidenciaSoftware;
 import com.example.demo.repository.IncidenciaRepository;
 
 
@@ -16,10 +18,17 @@ public class IncidenciaService {
     @Autowired
     private IncidenciaRepository incidenciaRepository;
 
-        public Incidencia crearIncidencia(Incidencia incidencia) {
+        public Incidencia crearIncidencia(Incidencia incidencia, IncidenciaHardware incidenciaH, IncidenciaSoftware incidenciaS) {
             if(incidencia.getFecha_incidencia()==null){
                 throw new RuntimeException("No se ha definido la fecha de la incidencia.");
             }else{
+            	if(incidencia.getTipo().equals("HW")) {
+            		incidencia.setIncidenciaHardware(incidenciaH);
+            		incidenciaH.setIncidencia(incidencia);
+            	}else {
+            		incidencia.setIncidenciaSoftware(incidenciaS);
+            		incidenciaS.setIncidencia(incidencia);
+            	}
                 return incidenciaRepository.save(incidencia);
             }
         }
@@ -32,7 +41,15 @@ public class IncidenciaService {
             return incidenciaRepository.findById(id);
         }
 
-        public Incidencia actualizarIncidencia(Incidencia incidencia) {
+        public Incidencia actualizarIncidencia(Incidencia incidencia,IncidenciaHardware incidenciaH, IncidenciaSoftware incidenciaS) {
+        	System.out.println("CHUPAPINGA" + incidenciaH.toString());
+        	if(incidencia.getTipo().equals("HW")) {
+        		incidencia.setIncidenciaHardware(incidenciaH);
+        		incidenciaH.setIncidencia(incidencia);
+        	}else {
+        		incidencia.setIncidenciaSoftware(incidenciaS);
+        		incidenciaS.setIncidencia(incidencia);
+        	}
             return incidenciaRepository.save(incidencia);
         }
 

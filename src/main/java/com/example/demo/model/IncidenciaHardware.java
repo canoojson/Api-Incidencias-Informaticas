@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="incidencias_hardware")
@@ -18,14 +19,15 @@ public class IncidenciaHardware {
 	@Id
 	private Integer IDH;
 	
-	@OneToOne
-    @JoinColumn(name = "IdIncidencia") 
-	@JsonBackReference
-    private Incidencia incidencia;
-	
     private String modelo;
+    
     private String num_serie;
 
+    @OneToOne
+    @JoinColumn(name="IdIncidencia", unique = true)
+    @JsonIgnore
+    private Incidencia incidencia;
+    
     @ManyToOne
     @JoinColumn(name = "tipo_hw") 
     private TiposHw tipoHw;
@@ -34,12 +36,12 @@ public class IncidenciaHardware {
 		super();
 	}
 
-	public IncidenciaHardware(Integer iDH, Incidencia incidencia, String modelo, String num_serie, TiposHw tipoHw) {
+	public IncidenciaHardware(Integer iDH, String modelo, String num_serie, Incidencia incidencia, TiposHw tipoHw) {
 		super();
 		IDH = iDH;
-		this.incidencia = incidencia;
 		this.modelo = modelo;
 		this.num_serie = num_serie;
+		this.incidencia = incidencia;
 		this.tipoHw = tipoHw;
 	}
 
@@ -49,14 +51,6 @@ public class IncidenciaHardware {
 
 	public void setIDH(Integer iDH) {
 		IDH = iDH;
-	}
-
-	public Incidencia getIncidencia() {
-		return incidencia;
-	}
-
-	public void setIncidencia(Incidencia incidencia) {
-		this.incidencia = incidencia;
 	}
 
 	public String getModelo() {
@@ -73,6 +67,14 @@ public class IncidenciaHardware {
 
 	public void setNum_serie(String num_serie) {
 		this.num_serie = num_serie;
+	}
+
+	public Incidencia getIncidencia() {
+		return incidencia;
+	}
+
+	public void setIncidencia(Incidencia incidencia) {
+		this.incidencia = incidencia;
 	}
 
 	public TiposHw getTipoHw() {
@@ -104,10 +106,7 @@ public class IncidenciaHardware {
 
 	@Override
 	public String toString() {
-		return "IncidenciaHardware [IDH=" + IDH + ", incidencia=" + incidencia + ", modelo=" + modelo + ", num_serie="
-				+ num_serie + ", tipoHw=" + tipoHw + "]";
+		return "IncidenciaHardware [IDH=" + IDH + ", modelo=" + modelo + ", num_serie=" + num_serie + ", incidencia="
+				+ incidencia + ", tipoHw=" + tipoHw + "]";
 	}
-
-	
-    
 }

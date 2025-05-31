@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="incidencias_software")
@@ -18,61 +19,73 @@ public class IncidenciaSoftware{
 	@Id
 	private Integer IDS;
 	
-	@OneToOne
-    @JoinColumn(name = "IdIncidencia") 
-	@JsonBackReference
-    private Incidencia incidencia;
-	
     private String SO;
     private String software;
     private String clave;
     
-    
-	public IncidenciaSoftware(Integer iDS, Incidencia incidencia, String sO, String software, String clave) {
+    @OneToOne
+    @JoinColumn(name="IdIncidencia", unique = true)
+    @JsonIgnore
+    private Incidencia incidencia;
+
+	public IncidenciaSoftware(Integer iDS, String sO, String software, String clave, Incidencia incidencia) {
 		super();
 		IDS = iDS;
-		this.incidencia = incidencia;
 		SO = sO;
 		this.software = software;
 		this.clave = clave;
+		this.incidencia = incidencia;
 	}
+
 	public IncidenciaSoftware() {
 		super();
 	}
+
 	public Integer getIDS() {
 		return IDS;
 	}
+
 	public void setIDS(Integer iDS) {
 		IDS = iDS;
 	}
-	public Incidencia getIncidencia() {
-		return incidencia;
-	}
-	public void setIncidencia(Incidencia incidencia) {
-		this.incidencia = incidencia;
-	}
+
 	public String getSO() {
 		return SO;
 	}
+
 	public void setSO(String sO) {
 		SO = sO;
 	}
+
 	public String getSoftware() {
 		return software;
 	}
+
 	public void setSoftware(String software) {
 		this.software = software;
 	}
+
 	public String getClave() {
 		return clave;
 	}
+
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+
+	public Incidencia getIncidencia() {
+		return incidencia;
+	}
+
+	public void setIncidencia(Incidencia incidencia) {
+		this.incidencia = incidencia;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(IDS, SO, clave, incidencia, software);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -85,12 +98,13 @@ public class IncidenciaSoftware{
 		return Objects.equals(IDS, other.IDS) && Objects.equals(SO, other.SO) && Objects.equals(clave, other.clave)
 				&& Objects.equals(incidencia, other.incidencia) && Objects.equals(software, other.software);
 	}
+
 	@Override
 	public String toString() {
-		return "IncidenciaSoftware [IDS=" + IDS + ", incidencia=" + incidencia + ", SO=" + SO + ", software=" + software
-				+ ", clave=" + clave + "]";
+		return "IncidenciaSoftware [IDS=" + IDS + ", SO=" + SO + ", software=" + software + ", clave=" + clave
+				+ ", incidencia=" + incidencia + "]";
 	}
+
 	
-    
     
 }
