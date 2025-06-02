@@ -19,6 +19,7 @@ public class IncidenciaService {
     private IncidenciaRepository incidenciaRepository;
 
         public Incidencia crearIncidencia(Incidencia incidencia, IncidenciaHardware incidenciaH, IncidenciaSoftware incidenciaS) {
+        	
             if(incidencia.getFecha_incidencia()==null){
                 throw new RuntimeException("No se ha definido la fecha de la incidencia.");
             }else{
@@ -42,8 +43,11 @@ public class IncidenciaService {
         }
 
         public Incidencia actualizarIncidencia(Incidencia incidencia,IncidenciaHardware incidenciaH, IncidenciaSoftware incidenciaS) {
-        	System.out.println("CHUPAPINGA" + incidenciaH.toString());
+   
         	if(incidencia.getTipo().equals("HW")) {
+        		if (incidenciaH == null) {
+        			incidenciaH = new IncidenciaHardware();
+        		}
         		incidencia.setIncidenciaHardware(incidenciaH);
         		incidenciaH.setIncidencia(incidencia);
         	}else {

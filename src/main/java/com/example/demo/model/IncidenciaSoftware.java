@@ -2,21 +2,21 @@ package com.example.demo.model;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="incidencias_software")
 public class IncidenciaSoftware{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer IDS;
 	
     private String SO;
