@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.model.Profesor;
+import com.example.demo.service.HashUtil;
 import com.example.demo.service.ProfesorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,15 +50,22 @@ public class ProfesorController {
     
     @PutMapping("/{id}")
     public ResponseEntity<Profesor> actualizarProfesor(@PathVariable Integer id, @RequestBody Profesor detallesProfesor) {
-        Optional<Profesor> profesorExistente = profesorService.obtenerProfesorPorId(id);
+    	System.out.println("ENTRO AQUI" + detallesProfesor.getPwd());
+        Optional<Profesor> profesorExistente = profesorService.obtenerProfesorPorId(id);       
         if (profesorExistente.isPresent()) {
             Profesor profesor = profesorExistente.get();
+            String pwdOriginal = profesor.getPwd();
+            String pwdNueva = detallesProfesor.getPwd();
             profesor.setNombre(detallesProfesor.getNombre());
             profesor.setApellidos(detallesProfesor.getApellidos());
             profesor.setDepartamento(detallesProfesor.getDepartamento());
             profesor.setEmail(detallesProfesor.getEmail());
             profesor.setDni(detallesProfesor.getDni());
-            profesor.setPwd(detallesProfesor.getPwd());
+            if (!pwdOriginal.equals(pwdNueva)) {
+                profesor.setPwd(HashUtil.md5(pwdNueva));
+            } else {
+                profesor.setPwd(pwdOriginal); // o directamente no lo toques
+            }
             profesor.setRol(detallesProfesor.getRol());
             profesor.setUsername(detallesProfesor.getUsername());
             Profesor profesorActualizado = profesorService.actualizarProfesor(profesor);
